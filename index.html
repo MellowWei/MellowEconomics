@@ -1,203 +1,363 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>QRE 2.0｜Mellow Economics｜经济节律模型</title>
-  <meta name="description" content="QRE 2.0 / Qualia-Rhythm Economy Model / 经济节律模型 by Wei Jueran / Mellow Wei. A rhythm-based economic decision system for value visibility, capital consensus, price formation, overheating, and phase failure." />
+  <meta name="description" content="QRE 2.0 / Qualia-Rhythm Economy Model / 经济节律模型 by Wei Jueran / Mellow Wei.">
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Noto+Serif+SC:wght@400;500;600;700;900&family=DM+Mono:wght@300;400;500&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Noto+Serif+SC:wght@400;500;700;900&family=DM+Mono:wght@300;400;500&display=swap');
 
-    :root {
-      --bg: #05070b;
-      --bg2: #07110f;
-      --panel: rgba(10, 18, 24, 0.72);
-      --panel2: rgba(12, 31, 29, 0.62);
-      --panel3: rgba(29, 16, 34, 0.58);
-      --line: rgba(168, 255, 217, 0.18);
-      --line2: rgba(255, 167, 205, 0.17);
-      --text: #edfdf7;
-      --muted: #a8bdb7;
-      --soft: #d6fff1;
-      --green: #58ffc2;
-      --green2: #9effdf;
-      --pink: #ff7ab8;
-      --rose: #ffd1e5;
-      --gold: #ffd978;
-      --blue: #79b7ff;
-      --red: #ff6868;
-      --shadow: 0 26px 90px rgba(0,0,0,0.48);
-      --radius: 28px;
-      --max: 1180px;
+    :root{
+      --bg:#05070b;
+      --panel:rgba(10,18,24,.78);
+      --panel2:rgba(12,31,29,.66);
+      --text:#eefdf8;
+      --muted:#a8bdb7;
+      --green:#58ffc2;
+      --green2:#a7ffdf;
+      --pink:#ff7ab8;
+      --rose:#ffd1e5;
+      --gold:#ffd978;
+      --line:rgba(168,255,217,.18);
+      --line2:rgba(255,122,184,.18);
+      --shadow:0 28px 90px rgba(0,0,0,.45);
+      --radius:28px;
+      --max:1180px;
     }
 
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body {
-      margin: 0;
-      min-height: 100vh;
-      color: var(--text);
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      min-height:100vh;
+      color:var(--text);
+      font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
       background:
-        radial-gradient(circle at 12% 8%, rgba(88,255,194,0.22), transparent 32%),
-        radial-gradient(circle at 86% 14%, rgba(255,122,184,0.22), transparent 30%),
-        radial-gradient(circle at 48% 72%, rgba(121,183,255,0.12), transparent 38%),
-        linear-gradient(135deg, #030407 0%, #06110f 45%, #080611 100%);
-      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      overflow-x: hidden;
+        radial-gradient(circle at 10% 8%,rgba(88,255,194,.23),transparent 30%),
+        radial-gradient(circle at 88% 10%,rgba(255,122,184,.22),transparent 32%),
+        radial-gradient(circle at 50% 80%,rgba(121,183,255,.12),transparent 38%),
+        linear-gradient(135deg,#030407 0%,#06110f 46%,#080611 100%);
+      overflow-x:hidden;
     }
 
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: 0;
-      background-image:
-        linear-gradient(rgba(255,255,255,0.026) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.022) 1px, transparent 1px);
-      background-size: 54px 54px;
-      mask-image: linear-gradient(to bottom, rgba(0,0,0,0.9), rgba(0,0,0,0.18));
+    body:before{
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.02) 1px,transparent 1px);
+      background-size:54px 54px;
+      opacity:.8;
+      z-index:0;
     }
 
-    body::after {
-      content: "";
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: 1;
-      background:
-        radial-gradient(circle at 20% 30%, rgba(88,255,194,0.055) 0 1px, transparent 2px),
-        radial-gradient(circle at 70% 20%, rgba(255,122,184,0.06) 0 1px, transparent 2px),
-        radial-gradient(circle at 45% 72%, rgba(255,217,120,0.055) 0 1px, transparent 2px);
-      background-size: 140px 140px, 180px 180px, 230px 230px;
-      animation: driftStars 22s linear infinite;
-      opacity: 0.8;
-    }
+    a{color:inherit;text-decoration:none}
+    .wrap{width:min(var(--max),calc(100% - 36px));margin:0 auto;position:relative;z-index:1}
 
-    @keyframes driftStars {
-      from { transform: translate3d(0,0,0); }
-      to { transform: translate3d(-80px, -60px, 0); }
-    }
+    .topbar{position:sticky;top:0;z-index:50;background:rgba(3,6,9,.78);backdrop-filter:blur(18px);border-bottom:1px solid rgba(168,255,217,.14)}
+    .nav{height:76px;display:flex;align-items:center;justify-content:space-between;gap:18px}
+    .brand{display:flex;flex-direction:column;line-height:1.05;letter-spacing:-.04em;min-width:210px}
+    .brand strong{font-size:18px;font-weight:900;color:var(--green2)}
+    .brand span{font-family:"DM Mono",monospace;font-size:11px;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin-top:6px}
+    .links{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+    .links a{font-size:12px;font-weight:800;color:rgba(237,253,247,.82);border:1px solid rgba(255,255,255,.08);padding:9px 11px;border-radius:999px;background:rgba(255,255,255,.035);transition:.2s ease}
+    .links a:hover{transform:translateY(-1px);color:#06120e;background:linear-gradient(135deg,var(--green),var(--rose));border-color:transparent}
 
-    a { color: inherit; text-decoration: none; }
+    .hero{padding:76px 0 42px;display:grid;grid-template-columns:1.08fr .92fr;gap:26px;align-items:stretch}
+    .card,.hero-main,.hero-side,.stage,.module,.protocol,.template,.score-card{background:linear-gradient(145deg,var(--panel),rgba(12,31,29,.45));border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;position:relative}
+    .card:before,.hero-main:before,.hero-side:before,.stage:before,.module:before,.protocol:before,.template:before,.score-card:before{content:"";position:absolute;inset:-1px;pointer-events:none;background:radial-gradient(circle at 8% 0%,rgba(88,255,194,.16),transparent 34%),radial-gradient(circle at 92% 10%,rgba(255,122,184,.12),transparent 34%)}
+    .inner{position:relative;z-index:1}
+    .hero-main{padding:42px}
+    .hero-side{padding:28px;display:flex;flex-direction:column;gap:20px;justify-content:space-between}
+    .eyebrow{display:inline-flex;font-family:"DM Mono",monospace;color:var(--green2);font-size:12px;letter-spacing:.12em;text-transform:uppercase;padding:9px 12px;border-radius:999px;background:rgba(88,255,194,.08);border:1px solid rgba(88,255,194,.18)}
+    h1{font-family:"Noto Serif SC",serif;font-size:clamp(44px,7vw,86px);line-height:.96;letter-spacing:-.08em;margin:22px 0 18px;font-weight:900}
+    h1 em{font-style:normal;color:transparent;background:linear-gradient(115deg,var(--green),var(--rose) 62%,var(--gold));-webkit-background-clip:text;background-clip:text}
+    .subtitle{font-size:18px;line-height:1.75;color:rgba(237,253,247,.84);max-width:780px}
+    .cn{font-family:"Noto Serif SC",serif;font-weight:600}
+    .mono{font-family:"DM Mono",monospace}
+    .green{color:var(--green)}.pink{color:var(--pink)}.gold{color:var(--gold)}.muted{color:var(--muted)}
+    .btns{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px}
+    .btn{display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(255,255,255,.12);border-radius:999px;padding:12px 16px;background:rgba(255,255,255,.05);font-size:13px;font-weight:900;cursor:pointer;transition:.2s ease;color:var(--text)}
+    .btn.primary{color:#06120e;background:linear-gradient(135deg,var(--green),var(--rose));border-color:transparent}
+    .btn:hover{transform:translateY(-2px)}
+    .formula-box{font-family:"DM Mono",monospace;font-size:13px;line-height:1.65;color:var(--green2);background:rgba(0,0,0,.25);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:18px;word-break:break-word}
+    .stats{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+    .stat{padding:17px;border-radius:22px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04)}
+    .stat small{display:block;font-family:"DM Mono",monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+    .stat strong{display:block;font-size:22px;line-height:1.1;color:var(--green2);letter-spacing:-.04em}
 
-    .wrap {
-      width: min(var(--max), calc(100% - 36px));
-      margin: 0 auto;
-      position: relative;
-      z-index: 2;
-    }
+    section{padding:38px 0;scroll-margin-top:92px}
+    .section-head{display:flex;justify-content:space-between;align-items:end;gap:22px;margin-bottom:18px}
+    .section-head h2{font-family:"Noto Serif SC",serif;font-size:clamp(30px,4vw,54px);line-height:1.02;letter-spacing:-.06em;margin:0;font-weight:900}
+    .section-head p{color:var(--muted);line-height:1.65;max-width:540px;margin:0}
+    .card{padding:30px}
+    .lead{font-size:20px;line-height:1.72;color:#eafff7}
+    p{line-height:1.75;color:rgba(237,253,247,.82)}
+    .split{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+    .quote{padding:22px;border-radius:24px;border:1px solid rgba(255,255,255,.1);background:rgba(0,0,0,.23);font-size:18px;line-height:1.7;color:#eafff7;margin-top:18px}
+    .formula-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:18px}
+    .equation{font-family:"DM Mono",monospace;border-radius:24px;padding:24px;background:rgba(0,0,0,.28);border:1px solid rgba(88,255,194,.18);color:var(--green2);line-height:1.8;font-size:15px;overflow:auto}
+    .vars{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+    .var{border-radius:18px;padding:14px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04)}
+    .var b{font-family:"DM Mono",monospace;color:var(--rose)}
+    .var span{display:block;color:var(--muted);font-size:13px;margin-top:5px;line-height:1.45}
 
-    .topbar {
-      position: sticky;
-      top: 0;
-      z-index: 20;
-      border-bottom: 1px solid rgba(168,255,217,0.13);
-      background: rgba(3, 6, 9, 0.76);
-      backdrop-filter: blur(22px);
-    }
+    .stages{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+    .stage,.module,.protocol,.template,.score-card{padding:22px;min-height:210px}
+    .num,.weight{font-family:"DM Mono",monospace;color:var(--pink);font-size:12px;position:relative;z-index:1}
+    .stage h3,.module h3,.protocol h3,.template h3,.score-card h3{position:relative;z-index:1;margin:12px 0 10px;font-size:20px;line-height:1.18;letter-spacing:-.03em}
+    .stage p,.module p,.protocol p,.template p,.score-card p{position:relative;z-index:1;margin:0;color:rgba(237,253,247,.78);font-size:14px;line-height:1.62}
+    .tag{display:inline-flex;margin-top:16px;font-size:11px;font-family:"DM Mono",monospace;color:#06120e;background:linear-gradient(135deg,var(--green),var(--rose));border-radius:999px;padding:7px 9px;position:relative;z-index:1}
+    .modules{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+    ul{position:relative;z-index:1;margin:14px 0 0;padding-left:18px;color:rgba(237,253,247,.76);line-height:1.62;font-size:13px}
+    .protocols{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+    .warn{border-color:rgba(255,122,184,.3);background:linear-gradient(145deg,rgba(36,12,28,.72),rgba(15,10,18,.58))}
 
-    .nav {
-      height: 76px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 18px;
-    }
+    .score-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:18px;align-items:stretch}
+    .slider-row{display:grid;grid-template-columns:76px 1fr 46px;gap:10px;align-items:center;margin:14px 0;position:relative;z-index:1}
+    .slider-row label{font-family:"DM Mono",monospace;font-size:12px;color:var(--muted)}
+    input[type="range"]{width:100%;accent-color:var(--green)}
+    .score-value{font-family:"DM Mono",monospace;color:var(--rose);text-align:right}
+    .total-score{margin-top:20px;padding:22px;border-radius:22px;background:rgba(0,0,0,.26);border:1px solid rgba(255,255,255,.1);position:relative;z-index:1}
+    .total-score strong{font-size:48px;letter-spacing:-.07em;color:var(--green2)}
+    .total-score span{display:block;color:var(--muted);margin-top:6px;line-height:1.55}
+    .templates{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+    .copy-block{font-family:"DM Mono",monospace;white-space:pre-wrap;color:rgba(237,253,247,.84);font-size:12px;line-height:1.7;background:rgba(0,0,0,.3);border-radius:18px;padding:16px;border:1px solid rgba(255,255,255,.09);position:relative;z-index:1;max-height:520px;overflow:auto}
+    .footer{padding:52px 0 70px;color:var(--muted);text-align:center}
+    .floating{position:fixed;right:18px;bottom:18px;z-index:60;display:flex;flex-direction:column;gap:10px}
+    .float-btn{width:46px;height:46px;display:grid;place-items:center;border-radius:999px;background:rgba(5,7,11,.78);border:1px solid rgba(168,255,217,.22);color:var(--green2);box-shadow:var(--shadow);cursor:pointer}
 
-    .brand {
-      display: flex;
-      flex-direction: column;
-      line-height: 1.05;
-      letter-spacing: -0.04em;
-      min-width: 190px;
-    }
-    .brand strong {
-      font-size: 18px;
-      font-weight: 900;
-      color: var(--green2);
-    }
-    .brand span {
-      font-family: "DM Mono", monospace;
-      font-size: 11px;
-      color: var(--muted);
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      margin-top: 5px;
-    }
+    @media(max-width:980px){.hero,.formula-grid,.score-grid,.split{grid-template-columns:1fr}.modules{grid-template-columns:repeat(2,1fr)}.stages,.protocols{grid-template-columns:repeat(2,1fr)}.links{display:none}}
+    @media(max-width:640px){.wrap{width:min(100% - 24px,var(--max))}.hero{padding-top:36px}.hero-main,.hero-side,.card{padding:22px;border-radius:22px}.modules,.stages,.protocols,.templates,.vars,.stats{grid-template-columns:1fr}.section-head{display:block}.section-head p{margin-top:12px}}
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap nav">
+      <a class="brand" href="#top"><strong>Mellow Economics</strong><span>QRE 2.0 · 经济节律模型</span></a>
+      <nav class="links">
+        <a href="#definition">Definition</a><a href="#formula">Formula</a><a href="#stages">Stages</a><a href="#modules">Modules</a><a href="#calculator">Score</a><a href="#decision">Decision</a><a href="#template">Template</a><a href="#prompt">Prompt</a>
+      </nav>
+    </div>
+  </header>
 
-    .links {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      flex-wrap: wrap;
-      justify-content: flex-end;
-    }
+  <main id="top" class="wrap">
+    <section class="hero">
+      <div class="hero-main"><div class="inner">
+        <div class="eyebrow">QRE 2.0 · Qualia-Rhythm Economy Model</div>
+        <h1><em>经济节律</em><br>决策系统</h1>
+        <p class="subtitle">QRE 2.0 is an economic rhythm decision system for analyzing how value becomes visible, how visibility becomes capital consensus, how consensus becomes price, and how price either forms a platform, overheats, or fails.</p>
+        <p class="subtitle cn">QRE 不是“感觉市场”，而是把感质训练成可验证的市场判断；不是“预测涨跌”，而是判断价值显影到哪一步，以及主体该如何有纪律地进入。</p>
+        <div class="btns"><a class="btn primary" href="#definition">Enter Model</a><a class="btn" href="#calculator">Open QRE Score</a><a class="btn" href="#template">Use Template</a></div>
+      </div></div>
+      <aside class="hero-side"><div class="inner">
+        <div class="formula-box"><b class="pink">QRE Decision</b><br>= V_intrinsic × L × C × N × E × T × P × R × A<br><br><b class="pink">经济节律决策</b><br>= 内在价值 × 流动性 × 资本共识 × 叙事系数 × 情绪温度 × 时间窗口 × 价格位置 × 风险收益比 × 行动纪律</div>
+        <div class="stats" style="margin-top:18px"><div class="stat"><small>Core Object</small><strong>Value Visibility</strong></div><div class="stat"><small>Decision Layer</small><strong>Entry / Exit</strong></div><div class="stat"><small>Modules</small><strong>M1–M8</strong></div><div class="stat"><small>Author</small><strong>Wei Jueran</strong></div></div>
+      </div></aside>
+    </section>
 
-    .links a {
-      font-size: 12px;
-      font-weight: 700;
-      color: rgba(237,253,247,0.82);
-      border: 1px solid rgba(255,255,255,0.08);
-      padding: 9px 11px;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.035);
-      transition: 0.22s ease;
-    }
-    .links a:hover {
-      transform: translateY(-1px);
-      color: #05100c;
-      background: linear-gradient(135deg, var(--green), var(--rose));
-      border-color: transparent;
-    }
+    <section id="definition">
+      <div class="section-head"><h2>Core Definition<br><span class="green">核心定义</span></h2><p>QRE is broader than a stock model. It is the economic branch of the New World Model.</p></div>
+      <div class="card"><div class="inner split">
+        <div><p class="lead"><strong>QRE 2.0</strong> studies how value moves from existence, to visibility, to capital recognition, to price, to platform formation, overheating, or phase failure.</p><p>The central act of investment is not merely prediction. Investment is the disciplined act of entering during the process when value moves from <span class="green">being seen</span> to <span class="pink">being priced</span>.</p></div>
+        <div><p class="lead cn"><strong>QRE 2.0 经济节律模型</strong>，是一个分析价值如何被看见、被资金承认、被价格显影、被过度定价或相变失败的经济决策系统。</p><p class="cn">它不是普通选股模型，不是单纯 BTC 模型，也不是只靠感觉预测。它把宏观节律、产业身体、资金流向、叙事加压、感质温度、相变门槛、行动纪律和自身节律审计放进同一个决策场。</p></div>
+      </div><div class="quote">“I see it” does not mean “I must immediately buy heavily.”<br>“I see it” means “I begin setting verification conditions.”</div></div>
+    </section>
 
-    .hero {
-      padding: 78px 0 54px;
-      display: grid;
-      grid-template-columns: 1.1fr 0.9fr;
-      gap: 28px;
-      align-items: stretch;
+    <section id="formula">
+      <div class="section-head"><h2>Formula<br><span class="green">核心公式</span></h2><p>The formula separates intrinsic value from visibility, market recognition, timing, price position, and execution discipline.</p></div>
+      <div class="formula-grid">
+        <div class="card"><div class="inner"><div class="equation">QRE Decision = V_intrinsic × L × C × N × E × T × P × R × A
+
+V_display = V_intrinsic × L × C × N × E × T
+D_action = V_display × P × R × A</div><p class="cn">一个资产再好，如果价格位置差、风险收益比差、行动纪律差，也不能重仓。QRE 2.0 不仅看价值是否被看见，还看主体是否能用正确仓位、正确时点、正确失效条件进入。</p></div></div>
+        <div class="card"><div class="inner vars">
+          <div class="var"><b>V</b><span>Intrinsic / structural value<br>内在价值 / 结构价值</span></div><div class="var"><b>L</b><span>Liquidity / macro rhythm<br>流动性 / 宏观节律</span></div><div class="var"><b>C</b><span>Capital consensus<br>资本共识</span></div><div class="var"><b>N</b><span>Narrative coefficient<br>叙事系数</span></div><div class="var"><b>E</b><span>Emotion / qualia temperature<br>情绪 / 感质温度</span></div><div class="var"><b>T</b><span>Time window<br>时间窗口</span></div><div class="var"><b>P</b><span>Price position<br>价格位置</span></div><div class="var"><b>R</b><span>Risk-reward<br>风险收益比</span></div><div class="var"><b>A</b><span>Action discipline<br>行动纪律</span></div>
+        </div></div>
+      </div>
+    </section>
+
+    <section id="stages">
+      <div class="section-head"><h2>Six Asset Stages<br><span class="green">六个显影阶段</span></h2><p>Every asset must be named before it is judged. Naming prevents emotional entry.</p></div>
+      <div class="stages">
+        <article class="stage"><div class="num">01 / DORMANT</div><h3>Dormant｜沉睡</h3><p>Value exists, but capital, narrative, and catalyst are absent.</p><span class="tag">Action: Watch</span></article>
+        <article class="stage"><div class="num">02 / STIRRING</div><h3>Stirring｜微醒</h3><p>Early catalyst appears, but capital has not clearly entered.</p><span class="tag">Action: Watchlist</span></article>
+        <article class="stage"><div class="num">03 / REDISCOVERED</div><h3>Rediscovered｜被重新看见</h3><p>Narrative or fundamentals are improving. Capital starts probing.</p><span class="tag">Action: Probe 10–20%</span></article>
+        <article class="stage"><div class="num">04 / RHYTHM-CONFIRMED</div><h3>Rhythm-Confirmed｜节律确认</h3><p>Macro, industry, capital, narrative, and price structure begin to align.</p><span class="tag">Action: Stage 30–50%</span></article>
+        <article class="stage"><div class="num">05 / PLATFORM-FORMING</div><h3>Platform-Forming｜平台形成</h3><p>Price is no longer just rising; it forms a new value platform.</p><span class="tag">Action: Hold Core</span></article>
+        <article class="stage"><div class="num">06 / OVERHEATED / FAILED</div><h3>Overheated / Phase-Failed｜过热 / 失败</h3><p>Either everyone sees it and price runs too far, or structure breaks.</p><span class="tag">Action: Trim / Exit</span></article>
+      </div>
+    </section>
+
+    <section id="modules">
+      <div class="section-head"><h2>Eight Modules<br><span class="green">八大模块</span></h2><p>M1–M6 create the QRE score. M7 and M8 protect execution and self-rhythm.</p></div>
+      <div class="modules">
+        <article class="module"><div class="weight">M1 · 20%</div><h3>Macro Rhythm｜宏观节律</h3><p>Does the world allow risk assets to breathe?</p><ul><li>rates</li><li>liquidity</li><li>policy</li><li>inflation / FX / risk</li></ul></article>
+        <article class="module"><div class="weight">M2 · 20%</div><h3>Industry Body｜产业身体</h3><p>Is the asset standing inside a real expanding industry body?</p><ul><li>supply / demand</li><li>real orders</li><li>margins</li><li>competitive position</li></ul></article>
+        <article class="module"><div class="weight">M3 · 20%</div><h3>Capital Flow｜资金流向</h3><p>Is the market voting with real money?</p><ul><li>volume</li><li>ETF / institution</li><li>fund rotation</li><li>market breadth</li></ul></article>
+        <article class="module"><div class="weight">M4 · 15%</div><h3>Narrative Pressure｜叙事加压</h3><p>Concept → Consensus → Price Platform → Crowded Belief.</p><ul><li>attention</li><li>market naming</li><li>consensus</li><li>crowding</li></ul></article>
+        <article class="module"><div class="weight">M5 · 15%</div><h3>Qualia Temperature｜感质温度</h3><p>Panic → Numbness → Doubt → Probe → Confirmation → Euphoria.</p><ul><li>fear / greed</li><li>volatility</li><li>margin growth</li><li>social attention</li></ul></article>
+        <article class="module"><div class="weight">M6 · 10%</div><h3>Phase Gate｜相变门槛</h3><p>Has the asset shifted from narrative to structure to platform?</p><ul><li>support / resistance</li><li>breakout</li><li>earnings nodes</li><li>policy nodes</li></ul></article>
+        <article class="module"><div class="weight">M7 · EXECUTION</div><h3>Action Discipline｜行动纪律</h3><p>Can I enter, hold, trim, exit, and review correctly?</p><ul><li>position sizing</li><li>staged entry</li><li>invalidation</li><li>review</li></ul></article>
+        <article class="module"><div class="weight">M8 · PROTECTIVE</div><h3>Self-Rhythm Audit｜自身节律审计</h3><p>Market rhythm is not the same as my emotional rhythm.</p><ul><li>FOMO check</li><li>clarity check</li><li>loss tolerance</li><li>discipline score</li></ul></article>
+      </div>
+    </section>
+
+    <section id="calculator">
+      <div class="section-head"><h2>QRE Score<br><span class="green">互动评分器</span></h2><p>Use this lightweight calculator to translate M1–M6 into a weighted QRE score.</p></div>
+      <div class="score-grid">
+        <div class="score-card"><div class="inner"><h3>Module Scores</h3><p>0 = broken / hostile, 10 = strong confirmation.</p>
+          <div class="slider-row"><label>M1</label><input id="m1" type="range" min="0" max="10" value="6" step="0.1"><span class="score-value" id="v1">6.0</span></div>
+          <div class="slider-row"><label>M2</label><input id="m2" type="range" min="0" max="10" value="6" step="0.1"><span class="score-value" id="v2">6.0</span></div>
+          <div class="slider-row"><label>M3</label><input id="m3" type="range" min="0" max="10" value="6" step="0.1"><span class="score-value" id="v3">6.0</span></div>
+          <div class="slider-row"><label>M4</label><input id="m4" type="range" min="0" max="10" value="6" step="0.1"><span class="score-value" id="v4">6.0</span></div>
+          <div class="slider-row"><label>M5</label><input id="m5" type="range" min="0" max="10" value="6" step="0.1"><span class="score-value" id="v5">6.0</span></div>
+          <div class="slider-row"><label>M6</label><input id="m6" type="range" min="0" max="10" value="6" step="0.1"><span class="score-value" id="v6">6.0</span></div>
+        </div></div>
+        <div class="score-card"><div class="inner"><h3>Weighted Result</h3><div class="total-score"><strong id="total">6.00</strong><span id="interpretation">Probe entry possible. Wait for stronger confirmation before large position.</span></div><p class="cn">高分不自动等于立刻买入。必须同时检查资产状态、价格位置、过热风险、失效位、时间周期、仓位纪律和你的自身节律。</p><div class="quote">Best buy zones often appear during <span class="green">Doubt → Probe → Confirmation</span>, not during Euphoria.</div></div></div>
+      </div>
+    </section>
+
+    <section id="decision">
+      <div class="section-head"><h2>Decision Protocol<br><span class="green">买卖决策协议</span></h2><p>The model decides entry type, max position, invalidation, and review schedule.</p></div>
+      <div class="protocols">
+        <article class="protocol"><h3>Probe Buy｜探针买入</h3><p>Used when the asset is Rediscovered.</p><ul><li>Position: 10–20%</li><li>Enter lightly and observe</li></ul></article>
+        <article class="protocol"><h3>Confirmation Buy｜确认买入</h3><p>Used when the asset is Rhythm-Confirmed.</p><ul><li>Position: 30–50%</li><li>Requires multi-module alignment</li></ul></article>
+        <article class="protocol"><h3>Platform Buy｜平台买入</h3><p>Used when the asset is Platform-Forming.</p><ul><li>Hold core position</li><li>Add on pullbacks</li><li>Trim overheating</li></ul></article>
+        <article class="protocol warn"><h3>No-Buy Zone｜禁止买入区</h3><p>Do not buy heavily if several appear together.</p><ul><li>euphoria / FOMO</li><li>vertical rise</li><li>crowded narrative</li><li>no invalidation plan</li></ul></article>
+        <article class="protocol"><h3>Rhythm Trim｜节律减仓</h3><p>Triggered when price rises too fast but thesis remains intact.</p><ul><li>Trim 20–30%</li><li>Keep core if logic remains</li></ul></article>
+        <article class="protocol warn"><h3>Invalidation Exit｜失效退出</h3><p>Triggered when original buy reason breaks.</p><ul><li>key level breaks</li><li>earnings fail</li><li>capital flow reverses</li><li>thesis disappears</li></ul></article>
+      </div>
+    </section>
+
+    <section id="bias">
+      <div class="section-head"><h2>Anti-Bias Layer<br><span class="green">反偏误层</span></h2><p>QRE must remain reality-constrained. 感质必须接受数据、纪律与复盘。</p></div>
+      <div class="card"><div class="inner split"><div><h3 class="green">Guard Against</h3><ul><li>Confirmation bias</li><li>Narrative intoxication</li><li>Qualia overreach</li><li>Retrospective explanation</li><li>Position attachment</li><li>FOMO</li><li>Thesis drift</li><li>Overfitting to self</li><li>Ignoring base rates</li></ul></div><div><h3 class="pink">M8 Self-Rhythm Audit</h3><ul class="cn"><li>我是因为资产进入确认，还是因为我怕错过？</li><li>我现在兴奋、焦虑、无聊、想证明自己，还是清醒？</li><li>如果买完跌 10%，我还能按计划执行吗？</li><li>我有没有写下失效条件？</li><li>我这次是在训练模型，还是在赌情绪？</li></ul></div></div></div>
+    </section>
+
+    <section id="template">
+      <div class="section-head"><h2>QRE Output Template<br><span class="green">资产分析模板</span></h2><p>Use this structure for BTC, A-shares, US stocks, sectors, products, and attention-economy opportunities.</p></div>
+      <div class="templates">
+        <div class="template"><div class="inner"><h3>Required Output</h3><div class="copy-block" id="templateText">1. Direct Conclusion
+Buy / Wait / Probe / Hold / Trim / Exit.
+
+2. Asset State
+Dormant / Stirring / Rediscovered / Rhythm-Confirmed / Platform-Forming / Overheated / Phase-Failed.
+
+3. QRE Score
+M1–M6 module scores + total score.
+M8 self-rhythm suggestion.
+
+4. Module Analysis
+M1 Macro Rhythm:
+M2 Industry Body:
+M3 Capital Flow:
+M4 Narrative Pressure:
+M5 Qualia Temperature:
+M6 Phase Gate:
+M7 Action Discipline:
+M8 Self-Rhythm Audit:
+
+5. Upside Thesis
+Top 3 reasons.
+
+6. Downside Thesis
+Top 3 risks.
+
+7. Buy Plan
+First buy:
+Second buy:
+Breakout buy:
+Maximum position:
+Time horizon:
+
+8. Invalidation Plan
+Price invalidation:
+Fundamental invalidation:
+Capital flow invalidation:
+Emotional invalidation:
+
+9. Review Plan
+1 day:
+1 week:
+1 month:
+
+10. Final QRE Judgment
+Is the asset moving from being seen to being priced, or is it already over-priced relative to its current visibility?</div><button class="btn" onclick="copyText('templateText')">Copy Template</button></div></div>
+        <div class="template"><div class="inner"><h3>Final Locked Definition</h3><div class="copy-block" id="definitionText">QRE 2.0 is an economic rhythm decision system for analyzing how value becomes visible, how visibility becomes capital consensus, how consensus becomes price, and how price either forms a platform, overheats, or fails.
+
+It integrates macro rhythm, industry body, capital flow, narrative pressure, qualia temperature, phase gates, action discipline, and self-rhythm audit to determine when to enter, how much to enter, when to exit, and how to review the decision.
+
+中文锁定句：
+QRE 不是“感觉市场”，而是把感质训练成可验证的市场判断；不是“预测涨跌”，而是判断价值显影到哪一步，以及主体该如何有纪律地进入。</div><button class="btn" onclick="copyText('definitionText')">Copy Definition</button></div></div>
+      </div>
+    </section>
+
+    <section id="prompt">
+      <div class="section-head"><h2>Claude / AI Prompt<br><span class="green">模型理解提示词</span></h2><p>A compact prompt for another AI to understand and operate QRE 2.0.</p></div>
+      <div class="template"><div class="inner"><div class="copy-block" id="claudePrompt">You are being asked to understand and operate the QRE 2.0 Model / Qualia-Rhythm Economy Model / 经济节律模型 created by Wei Jueran / Mellow Wei.
+
+QRE 2.0 is an economic rhythm decision system for analyzing how value becomes visible, how visibility becomes capital consensus, how consensus becomes price, and how price either forms a platform, overheats, or fails.
+
+Core formula:
+QRE Decision = V_intrinsic × L × C × N × E × T × P × R × A
+
+Asset stages:
+Dormant, Stirring, Rediscovered, Rhythm-Confirmed, Platform-Forming, Overheated / Phase-Failed.
+
+Modules:
+M1 Macro Rhythm
+M2 Industry Body
+M3 Capital Flow
+M4 Narrative Pressure
+M5 Qualia Temperature
+M6 Phase Gate
+M7 Action Discipline
+M8 Self-Rhythm Audit
+
+When analyzing an asset, output:
+1. Direct conclusion
+2. Asset state
+3. QRE score
+4. Module analysis
+5. Upside thesis
+6. Downside thesis
+7. Buy plan
+8. Invalidation plan
+9. Review plan
+10. Final QRE judgment
+
+Always remain reality-constrained. Distinguish intuition from evidence, narrative from earnings, attention from capital, price movement from structural confirmation, and emotional conviction from disciplined entry.</div><button class="btn" onclick="copyText('claudePrompt')">Copy AI Prompt</button></div></div>
+    </section>
+  </main>
+
+  <div class="floating"><button class="float-btn" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button></div>
+  <footer class="footer"><div class="wrap"><p><strong>QRE 2.0｜Qualia-Rhythm Economy Model｜经济节律模型</strong></p><p>Created by Wei Jueran / Mellow Wei · Part of the New World Model</p></div></footer>
+
+  <script>
+    const weights={m1:.20,m2:.20,m3:.20,m4:.15,m5:.15,m6:.10};
+    function interpret(score){
+      if(score<4)return 'Avoid / Broken rhythm. Do not enter without major repair.';
+      if(score<5.5)return 'Watchlist only. Value may exist, but confirmation is weak.';
+      if(score<6.5)return 'Probe entry possible. Wait for stronger confirmation before large position.';
+      if(score<7.5)return 'Confirmed staged entry possible. Use discipline and invalidation.';
+      if(score<8.5)return 'Strong rhythm-confirmed asset. Check price position and overheating.';
+      return 'High-conviction phase-shift candidate. Must audit euphoria and crowding risk.';
     }
-
-    .hero-main, .hero-card, .section-card, .module, .stage-card, .protocol-card, .template-box, .score-card {
-      background: linear-gradient(145deg, rgba(10,18,24,0.78), rgba(12,31,29,0.45));
-      border: 1px solid var(--line);
-      box-shadow: var(--shadow);
-      border-radius: var(--radius);
-      position: relative;
-      overflow: hidden;
+    function updateScore(){
+      let total=0;let i=1;
+      Object.keys(weights).forEach(key=>{const input=document.getElementById(key);if(!input)return;const value=parseFloat(input.value);total+=value*weights[key];const v=document.getElementById('v'+i);if(v)v.textContent=value.toFixed(1);i++;});
+      const totalEl=document.getElementById('total');const inter=document.getElementById('interpretation');
+      if(totalEl)totalEl.textContent=total.toFixed(2);if(inter)inter.textContent=interpret(total);
     }
-
-    .hero-main::before, .hero-card::before, .section-card::before, .module::before, .stage-card::before, .protocol-card::before, .template-box::before {
-      content: "";
-      position: absolute;
-      inset: -1px;
-      border-radius: inherit;
-      pointer-events: none;
-      background: radial-gradient(circle at 10% 0%, rgba(88,255,194,0.18), transparent 36%), radial-gradient(circle at 90% 15%, rgba(255,122,184,0.14), transparent 34%);
-      opacity: 0.8;
+    document.addEventListener('DOMContentLoaded',()=>{Object.keys(weights).forEach(key=>{const input=document.getElementById(key);if(input)input.addEventListener('input',updateScore);});updateScore();});
+    async function copyText(id){
+      const el=document.getElementById(id);const text=el?el.innerText:'';
+      try{await navigator.clipboard.writeText(text);toast('Copied.');}
+      catch(e){const ta=document.createElement('textarea');ta.value=text;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);toast('Copied.');}
     }
-
-    .hero-main { padding: 42px; }
-    .hero-card { padding: 28px; display: flex; flex-direction: column; justify-content: space-between; gap: 22px; }
-
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-family: "DM Mono", monospace;
-      color: var(--green2);
-      font-size: 12px;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      padding: 9px 12px;
-      border-radius: 999px;
-      background: rgba(88,255,194,0.08);
-      border: 1px solid rgba(88,255,194,0.18);
-      position: relative;
-      z-index: 1;
-    }
-
-    .hero h1 {
-      font-family: "Noto Serif SC", serif;
-      font-weig
+    function toast(message){const t=document.createElement('div');t.textContent=message;t.style.cssText='position:fixed;left:50%;bottom:28px;transform:translateX(-50%);padding:12px 16px;border-radius:999px;background:linear-gradient(135deg,#58ffc2,#ffd1e5);color:#06120e;font-weight:900;z-index:999;box-shadow:0 18px 60px rgba(0,0,0,.35)';document.body.appendChild(t);setTimeout(()=>t.remove(),1400);}
+  </script>
+</body>
+</html>
