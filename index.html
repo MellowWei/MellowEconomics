@@ -3,41 +3,45 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>QRE 2.0｜经济节律模型 · Qualia-Rhythm Economy Model</title>
+  <title>QRE 2.0｜Mellow Economics｜经济节律模型</title>
+  <meta name="description" content="QRE 2.0 / Qualia-Rhythm Economy Model / 经济节律模型 by Wei Jueran / Mellow Wei. A rhythm-based economic decision system for value visibility, capital consensus, price formation, overheating, and phase failure." />
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Inter:wght@300;400;500;600;700;800&family=Noto+Serif+SC:wght@400;500;600;700;900&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Noto+Serif+SC:wght@400;500;600;700;900&family=DM+Mono:wght@300;400;500&display=swap');
 
     :root {
-      --bg: #05060a;
-      --bg2: #0b1017;
-      --panel: rgba(12, 18, 28, 0.72);
-      --panel2: rgba(10, 24, 22, 0.68);
-      --line: rgba(187, 255, 221, 0.18);
-      --line2: rgba(255, 171, 215, 0.22);
-      --text: #edfdf6;
-      --muted: #9eb8ae;
-      --soft: #d7fff0;
-      --green: #72ffb6;
-      --green2: #1de89a;
-      --pink: #ff8ccc;
-      --pink2: #ff4aa8;
-      --gold: #f7d98b;
-      --blue: #93c5fd;
-      --red: #ff7d7d;
-      --shadow: 0 28px 80px rgba(0,0,0,.42);
+      --bg: #05070b;
+      --bg2: #07110f;
+      --panel: rgba(10, 18, 24, 0.72);
+      --panel2: rgba(12, 31, 29, 0.62);
+      --panel3: rgba(29, 16, 34, 0.58);
+      --line: rgba(168, 255, 217, 0.18);
+      --line2: rgba(255, 167, 205, 0.17);
+      --text: #edfdf7;
+      --muted: #a8bdb7;
+      --soft: #d6fff1;
+      --green: #58ffc2;
+      --green2: #9effdf;
+      --pink: #ff7ab8;
+      --rose: #ffd1e5;
+      --gold: #ffd978;
+      --blue: #79b7ff;
+      --red: #ff6868;
+      --shadow: 0 26px 90px rgba(0,0,0,0.48);
       --radius: 28px;
+      --max: 1180px;
     }
 
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
     body {
       margin: 0;
-      background:
-        radial-gradient(circle at 12% 12%, rgba(114, 255, 182, .16), transparent 30%),
-        radial-gradient(circle at 82% 10%, rgba(255, 140, 204, .17), transparent 31%),
-        radial-gradient(circle at 56% 78%, rgba(147, 197, 253, .12), transparent 36%),
-        linear-gradient(180deg, #020306 0%, #07100e 45%, #05060a 100%);
+      min-height: 100vh;
       color: var(--text);
+      background:
+        radial-gradient(circle at 12% 8%, rgba(88,255,194,0.22), transparent 32%),
+        radial-gradient(circle at 86% 14%, rgba(255,122,184,0.22), transparent 30%),
+        radial-gradient(circle at 48% 72%, rgba(121,183,255,0.12), transparent 38%),
+        linear-gradient(135deg, #030407 0%, #06110f 45%, #080611 100%);
       font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       overflow-x: hidden;
     }
@@ -47,470 +51,153 @@
       position: fixed;
       inset: 0;
       pointer-events: none;
-      opacity: .34;
-      background-image:
-        linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
-      background-size: 42px 42px;
-      mask-image: radial-gradient(circle at center, black, transparent 78%);
       z-index: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.026) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.022) 1px, transparent 1px);
+      background-size: 54px 54px;
+      mask-image: linear-gradient(to bottom, rgba(0,0,0,0.9), rgba(0,0,0,0.18));
     }
 
-    .noise {
+    body::after {
+      content: "";
       position: fixed;
       inset: 0;
       pointer-events: none;
-      z-index: 0;
-      opacity: .075;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 160 160' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      z-index: 1;
+      background:
+        radial-gradient(circle at 20% 30%, rgba(88,255,194,0.055) 0 1px, transparent 2px),
+        radial-gradient(circle at 70% 20%, rgba(255,122,184,0.06) 0 1px, transparent 2px),
+        radial-gradient(circle at 45% 72%, rgba(255,217,120,0.055) 0 1px, transparent 2px);
+      background-size: 140px 140px, 180px 180px, 230px 230px;
+      animation: driftStars 22s linear infinite;
+      opacity: 0.8;
     }
 
-    .orb {
-      position: fixed;
-      border-radius: 999px;
-      filter: blur(14px);
-      opacity: .4;
-      pointer-events: none;
-      z-index: 0;
-      animation: float 13s ease-in-out infinite alternate;
+    @keyframes driftStars {
+      from { transform: translate3d(0,0,0); }
+      to { transform: translate3d(-80px, -60px, 0); }
     }
-    .orb.one { width: 280px; height: 280px; left: -80px; top: 180px; background: rgba(114,255,182,.15); }
-    .orb.two { width: 220px; height: 220px; right: -60px; top: 420px; background: rgba(255,140,204,.15); animation-delay: -4s; }
-    .orb.three { width: 180px; height: 180px; left: 48%; bottom: 80px; background: rgba(147,197,253,.12); animation-delay: -8s; }
-    @keyframes float { from { transform: translateY(0) translateX(0); } to { transform: translateY(-34px) translateX(22px); } }
 
     a { color: inherit; text-decoration: none; }
 
-    nav {
+    .wrap {
+      width: min(var(--max), calc(100% - 36px));
+      margin: 0 auto;
+      position: relative;
+      z-index: 2;
+    }
+
+    .topbar {
       position: sticky;
       top: 0;
       z-index: 20;
-      backdrop-filter: blur(18px);
-      background: rgba(5, 6, 10, .66);
-      border-bottom: 1px solid var(--line);
+      border-bottom: 1px solid rgba(168,255,217,0.13);
+      background: rgba(3, 6, 9, 0.76);
+      backdrop-filter: blur(22px);
     }
-    .nav-inner {
-      max-width: 1180px;
-      margin: 0 auto;
-      padding: 14px 20px;
+
+    .nav {
+      height: 76px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 18px;
     }
+
     .brand {
       display: flex;
-      align-items: center;
-      gap: 11px;
-      min-width: 214px;
-      font-weight: 800;
-      letter-spacing: -.04em;
+      flex-direction: column;
+      line-height: 1.05;
+      letter-spacing: -0.04em;
+      min-width: 190px;
     }
-    .sigil {
-      width: 34px;
-      height: 34px;
-      border-radius: 14px;
-      background: linear-gradient(135deg, var(--green), var(--pink));
-      box-shadow: 0 0 28px rgba(114,255,182,.36), inset 0 0 16px rgba(255,255,255,.26);
-      position: relative;
+    .brand strong {
+      font-size: 18px;
+      font-weight: 900;
+      color: var(--green2);
     }
-    .sigil::after {
-      content: "Q";
-      position: absolute;
-      inset: 0;
-      display: grid;
-      place-items: center;
-      color: #06110e;
-      font-family: DM Mono, monospace;
-      font-weight: 700;
+    .brand span {
+      font-family: "DM Mono", monospace;
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-top: 5px;
     }
+
     .links {
       display: flex;
-      gap: 14px;
+      align-items: center;
+      gap: 8px;
       flex-wrap: wrap;
       justify-content: flex-end;
-      color: var(--muted);
-      font-size: 13px;
-      font-family: DM Mono, monospace;
     }
-    .links a { padding: 7px 9px; border-radius: 999px; }
-    .links a:hover { color: var(--text); background: rgba(255,255,255,.06); }
 
-    main, header, section, footer { position: relative; z-index: 1; }
-    .container { max-width: 1180px; margin: 0 auto; padding: 0 20px; }
+    .links a {
+      font-size: 12px;
+      font-weight: 700;
+      color: rgba(237,253,247,0.82);
+      border: 1px solid rgba(255,255,255,0.08);
+      padding: 9px 11px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.035);
+      transition: 0.22s ease;
+    }
+    .links a:hover {
+      transform: translateY(-1px);
+      color: #05100c;
+      background: linear-gradient(135deg, var(--green), var(--rose));
+      border-color: transparent;
+    }
 
     .hero {
-      min-height: 92vh;
-      display: grid;
-      align-items: center;
       padding: 78px 0 54px;
-    }
-    .hero-grid {
       display: grid;
-      grid-template-columns: 1.05fr .95fr;
-      gap: 34px;
-      align-items: center;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 28px;
+      align-items: stretch;
     }
+
+    .hero-main, .hero-card, .section-card, .module, .stage-card, .protocol-card, .template-box, .score-card {
+      background: linear-gradient(145deg, rgba(10,18,24,0.78), rgba(12,31,29,0.45));
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+      border-radius: var(--radius);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-main::before, .hero-card::before, .section-card::before, .module::before, .stage-card::before, .protocol-card::before, .template-box::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      border-radius: inherit;
+      pointer-events: none;
+      background: radial-gradient(circle at 10% 0%, rgba(88,255,194,0.18), transparent 36%), radial-gradient(circle at 90% 15%, rgba(255,122,184,0.14), transparent 34%);
+      opacity: 0.8;
+    }
+
+    .hero-main { padding: 42px; }
+    .hero-card { padding: 28px; display: flex; flex-direction: column; justify-content: space-between; gap: 22px; }
+
     .eyebrow {
       display: inline-flex;
       align-items: center;
-      gap: 10px;
-      padding: 8px 12px;
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      color: var(--soft);
-      background: rgba(255,255,255,.04);
-      font-family: DM Mono, monospace;
+      gap: 8px;
+      font-family: "DM Mono", monospace;
+      color: var(--green2);
       font-size: 12px;
-      letter-spacing: .04em;
-    }
-    .pulse {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: var(--green);
-      box-shadow: 0 0 18px var(--green);
-      animation: pulse 1.7s ease-in-out infinite;
-    }
-    @keyframes pulse { 0%,100% { opacity: .45; transform: scale(.9); } 50% { opacity: 1; transform: scale(1.25); } }
-
-    h1 {
-      margin: 22px 0 18px;
-      font-family: "Noto Serif SC", serif;
-      font-size: clamp(54px, 8vw, 112px);
-      line-height: .92;
-      letter-spacing: -.075em;
-    }
-    .gradient-text {
-      background: linear-gradient(100deg, #eafff6, var(--green), var(--pink), #fff0f8);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      text-shadow: 0 0 54px rgba(114,255,182,.08);
-    }
-    .subtitle {
-      max-width: 680px;
-      color: #cce4db;
-      font-size: clamp(18px, 2vw, 23px);
-      line-height: 1.62;
-      margin: 0 0 24px;
-    }
-    .subtitle strong { color: var(--text); }
-    .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 26px; }
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      padding: 13px 18px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 9px 12px;
       border-radius: 999px;
-      border: 1px solid var(--line);
-      background: rgba(255,255,255,.055);
-      color: var(--text);
-      font-weight: 700;
-      box-shadow: 0 14px 40px rgba(0,0,0,.22);
-      transition: transform .18s ease, border-color .18s ease, background .18s ease;
-    }
-    .btn.primary { background: linear-gradient(135deg, rgba(114,255,182,.95), rgba(255,140,204,.9)); color: #06110e; border: 0; }
-    .btn:hover { transform: translateY(-2px); border-color: rgba(114,255,182,.42); background: rgba(255,255,255,.085); }
-
-    .hero-card {
-      border: 1px solid var(--line);
-      background: linear-gradient(180deg, rgba(11,20,28,.82), rgba(9,12,20,.72));
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      padding: 24px;
+      background: rgba(88,255,194,0.08);
+      border: 1px solid rgba(88,255,194,0.18);
       position: relative;
-      overflow: hidden;
+      z-index: 1;
     }
-    .hero-card::before {
-      content: "";
-      position: absolute;
-      inset: -2px;
-      background: radial-gradient(circle at 30% 20%, rgba(114,255,182,.2), transparent 35%), radial-gradient(circle at 90% 0%, rgba(255,140,204,.16), transparent 33%);
-      pointer-events: none;
-    }
-    .formula-box { position: relative; z-index: 1; }
-    .mono { font-family: DM Mono, monospace; }
-    .formula-title { color: var(--muted); font-size: 13px; margin-bottom: 14px; }
-    .formula {
-      padding: 18px;
-      border-radius: 20px;
-      background: rgba(0,0,0,.22);
-      border: 1px solid rgba(255,255,255,.08);
-      font-family: DM Mono, monospace;
-      font-size: clamp(19px, 2vw, 28px);
-      line-height: 1.45;
-      color: #f5fff9;
-      box-shadow: inset 0 0 40px rgba(114,255,182,.045);
-    }
-    .coeff-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-      margin-top: 14px;
-    }
-    .coeff {
-      padding: 13px;
-      border-radius: 17px;
-      background: rgba(255,255,255,.045);
-      border: 1px solid rgba(255,255,255,.08);
-    }
-    .coeff b { display: block; color: var(--green); font-size: 18px; }
-    .coeff span { color: var(--muted); font-size: 12px; }
 
-    section { padding: 78px 0; }
-    .section-head { margin-bottom: 28px; max-width: 840px; }
-    .kicker { color: var(--green); font-family: DM Mono, monospace; font-size: 13px; letter-spacing: .08em; text-transform: uppercase; }
-    h2 {
-      margin: 10px 0 12px;
+    .hero h1 {
       font-family: "Noto Serif SC", serif;
-      font-size: clamp(34px, 5vw, 66px);
-      line-height: 1.03;
-      letter-spacing: -.055em;
-    }
-    .lead { color: #bdd6ce; font-size: 18px; line-height: 1.75; }
-
-    .grid { display: grid; gap: 16px; }
-    .grid.three { grid-template-columns: repeat(3, 1fr); }
-    .grid.two { grid-template-columns: repeat(2, 1fr); }
-    .card {
-      border: 1px solid var(--line);
-      background: var(--panel);
-      border-radius: 24px;
-      padding: 22px;
-      box-shadow: 0 18px 48px rgba(0,0,0,.21);
-      position: relative;
-      overflow: hidden;
-    }
-    .card::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      right: 0;
-      top: 0;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(114,255,182,.62), rgba(255,140,204,.48), transparent);
-    }
-    .card h3 { margin: 0 0 10px; font-size: 21px; letter-spacing: -.02em; }
-    .card p, .card li { color: var(--muted); line-height: 1.68; }
-    .card p { margin: 0; }
-    .tag {
-      display: inline-flex;
-      padding: 6px 10px;
-      border-radius: 999px;
-      background: rgba(114,255,182,.1);
-      border: 1px solid rgba(114,255,182,.18);
-      color: var(--soft);
-      font-family: DM Mono, monospace;
-      font-size: 11px;
-      margin-bottom: 14px;
-    }
-    .pink-tag { background: rgba(255,140,204,.1); border-color: rgba(255,140,204,.2); color: #ffd8ec; }
-
-    .stages {
-      display: grid;
-      grid-template-columns: repeat(6, 1fr);
-      gap: 11px;
-      margin-top: 26px;
-    }
-    .stage {
-      min-height: 170px;
-      padding: 16px;
-      border-radius: 22px;
-      border: 1px solid rgba(255,255,255,.09);
-      background: rgba(255,255,255,.042);
-      position: relative;
-    }
-    .stage-num { font-family: DM Mono, monospace; color: var(--pink); font-size: 12px; }
-    .stage h3 { font-size: 17px; margin: 10px 0 8px; }
-    .stage p { font-size: 13px; color: var(--muted); line-height: 1.55; margin: 0; }
-
-    .module-list { display: grid; gap: 14px; }
-    .module {
-      display: grid;
-      grid-template-columns: 110px 1fr 92px;
-      gap: 16px;
-      align-items: center;
-      padding: 18px;
-      border-radius: 22px;
-      border: 1px solid var(--line);
-      background: rgba(255,255,255,.04);
-    }
-    .module-code { font-family: DM Mono, monospace; color: var(--green); font-size: 22px; font-weight: 700; }
-    .module h3 { margin: 0 0 6px; font-size: 20px; }
-    .module p { margin: 0; color: var(--muted); line-height: 1.55; }
-    .weight { text-align: right; font-family: DM Mono, monospace; color: var(--pink); }
-
-    .decision-panel {
-      border: 1px solid var(--line2);
-      background: linear-gradient(135deg, rgba(255,140,204,.08), rgba(114,255,182,.06));
-      border-radius: 30px;
-      padding: 26px;
-      display: grid;
-      grid-template-columns: .95fr 1.05fr;
-      gap: 20px;
-      align-items: stretch;
-    }
-    .flow {
-      display: grid;
-      gap: 10px;
-    }
-    .flow-step {
-      padding: 14px 15px;
-      border-radius: 18px;
-      background: rgba(0,0,0,.18);
-      border: 1px solid rgba(255,255,255,.08);
-      display: flex;
-      gap: 12px;
-      align-items: flex-start;
-    }
-    .flow-step b {
-      min-width: 30px;
-      height: 30px;
-      border-radius: 999px;
-      display: grid;
-      place-items: center;
-      background: rgba(114,255,182,.14);
-      color: var(--green);
-      font-family: DM Mono, monospace;
-    }
-    .flow-step span { color: #d8eee5; line-height: 1.55; }
-
-    .table-wrap { overflow-x: auto; border-radius: 24px; border: 1px solid var(--line); background: rgba(255,255,255,.035); }
-    table { width: 100%; border-collapse: collapse; min-width: 780px; }
-    th, td { text-align: left; padding: 15px 16px; border-bottom: 1px solid rgba(255,255,255,.07); vertical-align: top; }
-    th { color: var(--green); font-family: DM Mono, monospace; font-size: 12px; letter-spacing: .05em; text-transform: uppercase; }
-    td { color: #c7ddd5; line-height: 1.55; }
-    tr:last-child td { border-bottom: 0; }
-
-    .template {
-      border-radius: 28px;
-      border: 1px solid var(--line);
-      background: #060b10;
-      overflow: hidden;
-      box-shadow: var(--shadow);
-    }
-    .template-head {
-      display: flex;
-      justify-content: space-between;
-      gap: 12px;
-      align-items: center;
-      padding: 14px 18px;
-      background: rgba(255,255,255,.045);
-      border-bottom: 1px solid rgba(255,255,255,.08);
-      font-family: DM Mono, monospace;
-      color: var(--muted);
-      font-size: 12px;
-    }
-    pre {
-      margin: 0;
-      padding: 22px;
-      white-space: pre-wrap;
-      color: #ddfff1;
-      font-family: DM Mono, monospace;
-      line-height: 1.7;
-      font-size: 13px;
-    }
-    .copy-btn {
-      border: 1px solid var(--line);
-      background: rgba(114,255,182,.08);
-      color: var(--soft);
-      border-radius: 999px;
-      padding: 8px 12px;
-      cursor: pointer;
-      font-family: DM Mono, monospace;
-    }
-
-    .footer-quote {
-      padding: 44px;
-      border-radius: 32px;
-      background: linear-gradient(135deg, rgba(114,255,182,.12), rgba(255,140,204,.12));
-      border: 1px solid var(--line);
-      text-align: center;
-      font-family: "Noto Serif SC", serif;
-      font-size: clamp(26px, 4vw, 52px);
-      line-height: 1.18;
-      letter-spacing: -.04em;
-    }
-    footer { padding: 40px 0 70px; color: var(--muted); text-align: center; font-family: DM Mono, monospace; font-size: 12px; }
-
-    @media (max-width: 960px) {
-      .hero-grid, .decision-panel, .grid.two, .grid.three { grid-template-columns: 1fr; }
-      .stages { grid-template-columns: repeat(2, 1fr); }
-      .module { grid-template-columns: 1fr; }
-      .weight { text-align: left; }
-      .links { display: none; }
-    }
-    @media (max-width: 560px) {
-      h1 { font-size: 58px; }
-      .coeff-grid, .stages { grid-template-columns: 1fr; }
-      .hero-card, .card, .decision-panel { padding: 18px; }
-    }
-  </style>
-</head>
-<body>
-  <div class="noise"></div>
-  <div class="orb one"></div>
-  <div class="orb two"></div>
-  <div class="orb three"></div>
-
-  <nav>
-    <div class="nav-inner">
-      <a class="brand" href="#top"><span class="sigil"></span><span>QRE 2.0</span></a>
-      <div class="links">
-        <a href="#definition">Definition</a>
-        <a href="#formula">Formula</a>
-        <a href="#stages">Stages</a>
-        <a href="#modules">Modules</a>
-        <a href="#decision">Decision</a>
-        <a href="#template">Template</a>
-      </div>
-    </div>
-  </nav>
-
-  <header id="top" class="hero">
-    <div class="container hero-grid">
-      <div>
-        <div class="eyebrow"><span class="pulse"></span> QUALIA-RHYTHM ECONOMY MODEL · 经济节律模型</div>
-        <h1><span class="gradient-text">QRE 2.0</span><br/>经济节律决策系统</h1>
-        <p class="subtitle">
-          QRE 不是“感觉市场”，而是把感质训练成可验证的市场判断；不是只预测涨跌，而是判断<strong>价值显影到哪一步</strong>，以及主体该如何有纪律地进入。
-        </p>
-        <div class="hero-actions">
-          <a class="btn primary" href="#decision">进入决策系统</a>
-          <a class="btn" href="#template">复制分析模板</a>
-        </div>
-      </div>
-      <div class="hero-card" id="formula">
-        <div class="formula-box">
-          <div class="formula-title">LOCKED FORMULA / 锁定公式</div>
-          <div class="formula">QRE Decision = V<sub>intrinsic</sub> × L × C × N × E × T × P × R × A</div>
-          <div class="coeff-grid">
-            <div class="coeff"><b>L</b><span>Liquidity / Macro Rhythm</span></div>
-            <div class="coeff"><b>C</b><span>Capital Consensus</span></div>
-            <div class="coeff"><b>N</b><span>Narrative Coefficient</span></div>
-            <div class="coeff"><b>E</b><span>Emotion Temperature</span></div>
-            <div class="coeff"><b>T</b><span>Time Window</span></div>
-            <div class="coeff"><b>P/R/A</b><span>Position / Risk / Action</span></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </header>
-
-  <main>
-    <section id="definition">
-      <div class="container">
-        <div class="section-head">
-          <div class="kicker">Core Definition</div>
-          <h2>价值如何被看见，被承认，被定价。</h2>
-          <p class="lead">QRE 2.0 是一个分析价值如何从存在进入显影、从显影进入资金共识、从资金共识进入价格平台，并最终走向平台形成、过热或相变失败的经济决策系统。</p>
-        </div>
-        <div class="grid three">
-          <div class="card">
-            <span class="tag">Value Visibility</span>
-            <h3>不是只问“会不会涨”</h3>
-            <p>它先问：资产现在处在哪个显影阶段？是沉睡、微醒、被重新看见，还是节律确认？</p>
-          </div>
-          <div class
+      font-weig
